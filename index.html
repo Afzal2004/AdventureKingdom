@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0F172A">
+<title>The Adventure of an African Kingdom — Mohammed Afzal</title>
+<meta name="description" content="A Dream Adventure Novel by Mohammed Afzal. A student is chosen as king of an ancient African kingdom — and must save it from a cunning enemy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-crown">👑</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <p class="loader-text">Entering the Kingdom</p>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">African Kingdom</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">Story</a></li>
+    <li><a href="#read-preview">Read Online</a></li>
+    <li><a href="#chapters">Chapters</a></li>
+    <li><a href="#author">Author</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="nav-mobile-only"><a href="#download">Get the Book</a></li>
+  </ul>
+  <div class="nav-right">
+    <button id="theme-btn" title="Toggle theme">🌙</button>
+    <div id="auth-nav">
+      <button id="login-btn" class="nav-auth-btn">Login</button>
+      <div id="user-menu" class="user-menu hidden">
+        <span id="user-greeting"></span>
+        <button id="read-btn" class="nav-auth-btn gold">Read Novel</button>
+        <button id="admin-btn" class="nav-auth-btn" aria-hidden="true">Dashboard</button>
+        <button id="logout-btn" class="nav-auth-btn outline">Logout</button>
+      </div>
+    </div>
+    <a href="#download" class="nav-cta">Get the Book</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    
+    <!-- Background Image -->
+    <div class="hero-bg">
+        <img src="images/banner.png" alt="The Adventure of an African Kingdom" class="hero-banner">
+    </div>
+
+    <!-- Dark Overlay -->
+    <div class="hero-overlay"></div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+        <p class="hero-eyebrow">✦ A Dream Adventure Novel ✦</p>
+
+        <h1 class="hero-title">
+            The Adventure of an
+            <em>African Kingdom</em>
+        </h1>
+
+        <p class="hero-sub">
+            A Dream. A Kingdom. A Destiny.
+        </p>
+
+        <div class="hero-btns">
+            <button id="hero-read-btn" class="btn-primary">
+                Read the Story — <span data-price>₹99</span>
+            </button>
+
+            <button id="hero-download-btn" class="btn-outline">
+                Download PDF
+            </button>
+        </div>
+        <p class="hero-price-note">✦ Login required · Unlock for <span data-price>₹99</span> to read & download ✦</p>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+        <span>Scroll</span>
+    </div>
+
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid reveal">
+    <div><div class="stat-num">13</div><div class="stat-label">Chapters</div></div>
+    <div><div class="stat-num">5+</div><div class="stat-label">Main Characters</div></div>
+    <div><div class="stat-num">∞</div><div class="stat-label">Adventure Awaits</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid container">
+    <div class="about-img-wrap reveal">
+      <img src="images/cover.png" alt="The Adventure of an African Kingdom — book cover" class="about-img">
+      <div class="about-badge">
+        <span class="big">👑</span>
+        <span class="small">A Dream Adventure</span>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <span class="section-eyebrow">About the Novel</span>
+      <h2 class="section-title">A Dream So Real, It Became a Story</h2>
+      <div class="divider"></div>
+      <p class="section-lead">
+        When a 10th-grade student boards a school bus for what seems like an ordinary trip, nothing prepares him for what lies ahead. Across continents, behind ancient gates of black stone, a kingdom awaits — and within it, a frozen king who has slept for twenty years, waiting for the one who will be chosen.
+      </p>
+      <p class="section-lead" style="margin-top:1rem;">
+        This is a story about courage, destiny, and the power of the mind. It is a story that began as a dream — and refused to stay one.
+      </p>
+      <div class="about-tags">
+        <span class="tag">Fantasy</span>
+        <span class="tag">Adventure</span>
+        <span class="tag">African Kingdom</span>
+        <span class="tag">Coming of Age</span>
+        <span class="tag">Dream Fiction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- READ PREVIEW -->
+<section id="read-preview">
+  <div class="read-preview-bg"></div>
+  <div class="container read-preview-inner reveal">
+    <div class="read-preview-grid">
+      <div class="read-preview-cover">
+        <div class="cover-glow"></div>
+        <img src="images/cover.png" alt="The Adventure of an African Kingdom — book cover" class="novel-cover-img">
+      </div>
+      <div class="read-preview-text">
+        <span class="section-eyebrow">Read Online</span>
+        <h2 class="section-title">The Complete Novel Awaits</h2>
+        <div class="divider"></div>
+        <p class="section-lead">Experience all 13 chapters in a beautiful immersive reader — with chapter navigation, adjustable text size, and a sepia reading mode.</p>
+        <ul class="read-features">
+          <li>✦ Full story from the official PDF edition</li>
+          <li>✦ Chapter-by-chapter navigation</li>
+          <li>✦ Comfortable reading themes</li>
+          <li>✦ One-time unlock for just <span data-price>₹99</span></li>
+        </ul>
+        <button id="preview-read-btn" class="btn-primary">Start Reading — <span data-price>₹99</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KINGDOM -->
+<section id="kingdom">
+  <div class="container">
+    <div class="kingdom-header reveal">
+      <span class="section-eyebrow">The World of the Story</span>
+      <h2 class="section-title">The Kingdom of Black Stone</h2>
+      <div class="divider"></div>
+      <p class="section-lead">An ancient realm carved from dark mountains, ruled by a frozen king, and protected by warriors who bow to no ordinary man.</p>
+    </div>
+    <div class="kingdom-cards reveal">
+      <div class="kingdom-card">
+        <img src="images/gate.png" alt="Ancient African fortress">
+        <div class="kingdom-card-overlay">
+          <div class="kingdom-card-icon">🏯</div>
+          <h3>The Black Stone Gates</h3>
+          <p>Massive gates carved from the mountain itself, rising from the ground with a thunderous rumble.</p>
+        </div>
+      </div>
+      <div class="kingdom-card">
+        <img src="images/warrior.png" alt="African warriors">
+        <div class="kingdom-card-overlay">
+          <div class="kingdom-card-icon">⚔️</div>
+          <h3>The Warriors</h3>
+          <p>Armored soldiers who enforce the kingdom's law with discipline and ancient power.</p>
+        </div>
+      </div>
+      
+      <div class="kingdom-card">
+        <img src="images/frozenking.png" alt="Crystal ice formation">
+        <div class="kingdom-card-overlay">
+          <div class="kingdom-card-icon">❄️</div>
+          <h3>The Sacred Ice Chamber</h3>
+          <p>A secret room beneath the throne hall, where the king has slept inside a block of crystal ice for twenty years.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <div class="timeline-header reveal">
+      <span class="section-eyebrow">The Journey</span>
+      <h2 class="section-title">Chapter by Chapter</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="timeline-track reveal">
+      <div class="timeline-line"></div>
+      <div class="timeline-items">
+        <div class="tl-item">
+          <div class="tl-content">
+            <p class="tl-chapter">Chapter 1</p>
+            <h3>The Dream Begins</h3>
+            <p>A school bus. An airport. A destination kept secret until the moment it changes everything: Africa.</p>
+          </div>
+          <div class="tl-dot-wrap"><div class="tl-dot">✈️</div></div>
+          <div class="tl-empty"></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-empty"></div>
+          <div class="tl-dot-wrap"><div class="tl-dot">🏰</div></div>
+          <div class="tl-content">
+            <p class="tl-chapter">Chapter 2–3</p>
+            <h3>The Gates of Black Stone</h3>
+            <p>Giant stone gates rise from the earth. The kingdom reveals its first rule: do not dare to damage what is sacred here.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-content">
+            <p class="tl-chapter">Chapter 4–5</p>
+            <h3>The Mysterious Smile</h3>
+            <p>A powerful stranger in silver robes stops and smiles — at the narrator alone. Then, in a hidden room, the frozen king is discovered.</p>
+          </div>
+          <div class="tl-dot-wrap"><div class="tl-dot">👁️</div></div>
+          <div class="tl-empty"></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-empty"></div>
+          <div class="tl-dot-wrap"><div class="tl-dot">❄️</div></div>
+          <div class="tl-content">
+            <p class="tl-chapter">Chapter 6–7</p>
+            <h3>The King Awakens</h3>
+            <p>After twenty frozen years, the king walks to his throne — and points at one student from India as his chosen successor.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-content">
+            <p class="tl-chapter">Chapter 8–9</p>
+            <h3>Left Behind</h3>
+            <p>The buses leave. Friends wave goodbye. And the new king stands alone beneath the stars of the Kingdom of Black Stone.</p>
+          </div>
+          <div class="tl-dot-wrap"><div class="tl-dot">👑</div></div>
+          <div class="tl-empty"></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-empty"></div>
+          <div class="tl-dot-wrap"><div class="tl-dot">⚔️</div></div>
+          <div class="tl-content">
+            <p class="tl-chapter">Chapter 10–12</p>
+            <h3>The Final Battle</h3>
+            <p>A year of training. A warrior's mind forged. And then — the villain returns for the last time.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-content">
+            <p class="tl-chapter">Final Chapter</p>
+            <h3>The Return</h3>
+            <p>Peace restored. A journey home. And a question that lingers long after waking: was any of it real?</p>
+          </div>
+          <div class="tl-dot-wrap"><div class="tl-dot">🌅</div></div>
+          <div class="tl-empty"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTERS -->
+<section id="chapters">
+  <div class="container">
+    <div class="chapters-header reveal">
+      <span class="section-eyebrow">Chapter Collection</span>
+      <h2 class="section-title">Explore Every Chapter</h2>
+      <div class="divider"></div>
+      <p class="section-lead chapters-sub">All 13 chapters of the complete novel — unlock full access for <span data-price>₹99</span></p>
+    </div>
+    <div class="chapter-search-wrap reveal">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="chapter-search" class="chapter-search" placeholder="Search chapters…" aria-label="Search chapters">
+    </div>
+    <div class="chapters-grid" id="chapters-grid">
+      <!-- generated by JS -->
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- QUOTES -->
+<section id="quotes">
+  <div class="quotes-inner reveal">
+    <span class="section-eyebrow">Words from the Kingdom</span>
+    <h2 class="section-title" style="margin-bottom:2.5rem;">Memorable Quotes</h2>
+    <div class="quote-slider">
+      <div class="quote-slide active">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Strength alone is not enough. Your mind is your greatest weapon.</p>
+        <p class="quote-attr">— The King of the African Kingdom</p>
+      </div>
+      <div class="quote-slide">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">This is not a battle of strength. It is a battle of mind.</p>
+        <p class="quote-attr">— The Frozen King</p>
+      </div>
+      <div class="quote-slide">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">You are the King of the African Kingdom now. These people need you. This kingdom is your responsibility.</p>
+        <p class="quote-attr">— The Teacher</p>
+      </div>
+      <div class="quote-slide">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Do not be afraid of him. He is strong, but not unstoppable. If we stand together, united as one kingdom, we can defeat him.</p>
+        <p class="quote-attr">— The Student King</p>
+      </div>
+      <div class="quote-slide">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">It still felt real. Even after waking up, it still felt real.</p>
+        <p class="quote-attr">— Mohammed Afzal, Final Chapter</p>
+      </div>
+    </div>
+    <div class="quote-dots" id="quote-dots"></div>
+  </div>
+</section>
+
+
+
+
+<!-- AUTHOR -->
+<section id="author">
+  <div class="author-wrap reveal">
+    <div class="author-portrait">
+      <img src="images/afzal.jpeg" alt="Mohammed Afzal, author">
+      <div class="author-socials">
+<a href="https://wa.me/918495077385" target="_blank" class="social-link" title="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a><a href="https://instagram.com/_mohammedafzal_" target="_blank" class="social-link" title="Instagram">
+    <i class="fab fa-instagram"></i>
+</a>     
+<a href="mailto:mohammedafzal1423@gmail.com" class="social-link" title="Email">
+    <i class="fas fa-envelope"></i>
+</a>      </div>
+    </div>
+    <div>
+      <span class="section-eyebrow">The Author</span>
+      <h2 class="section-title">Mohammed Afzal</h2>
+      <div class="divider"></div>
+      <p class="section-lead">Mohammed Afzal is an aspiring storyteller who finds inspiration in dreams and imagination. This novel is based on a powerful dream that stayed with him for years, eventually becoming the foundation of <em>The Adventure of an African Kingdom</em>.</p>
+      <p class="section-lead" style="margin-top:1rem;">Through his writing, he brings fantasy, mystery, and emotion together to create immersive adventure stories that begin in sleep and refuse to end at waking.</p>
+      <blockquote style="margin-top:1.8rem; padding-left:1.2rem; border-left: 2px solid var(--gold); font-family:'Lora',serif; font-style:italic; color:rgba(255,255,255,0.7); font-size:0.95rem; line-height:1.7;">
+        "I had this dream when I was in the 10th standard. It refused to leave me. So I gave it a world."
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download">
+  <div class="download-inner reveal">
+    <span class="section-eyebrow">Get the Book</span>
+    <h2 class="section-title">Begin Your Journey Today</h2>
+    <div class="divider" style="margin:1.2rem auto;"></div>
+    <img src="images/cover.png" alt="The Adventure of an African Kingdom — book cover" class="download-cover">
+    <p class="section-lead" style="margin:0 auto 2rem; text-align:center;">Login and unlock the novel to read online or download the complete PDF.</p>
+<div class="download-btns">
+      <button id="download-pdf-btn" class="btn-primary">⬇ Download PDF</button>
+      <button id="download-read-btn" class="btn-outline">Read Online — <span data-price>₹99</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="newsletter-inner reveal">
+    <span class="section-eyebrow">Stay Connected</span>
+    <h2 class="section-title">Join the Kingdom</h2>
+    <div class="divider" style="margin:1.2rem auto;"></div>
+    <div class="newsletter-form">
+      <input type="email" id="nl-email" class="newsletter-input" placeholder="Your email address…">
+      <button class="btn-primary" onclick="subscribeNewsletter()">Subscribe</button>
+    </div>
+    <p id="newsletter-success">✦ Welcome to the Kingdom! </p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid container reveal">
+    <div>
+      <span class="section-eyebrow">Get in Touch</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="divider"></div>
+      <div class="contact-info-item">
+        <span class="contact-icon">✉️</span>
+        <div><h4>Email</h4><p>mohammedafzal1423@gmail.com</p></div>
+      </div>
+      <div class="contact-info-item">
+        <span class="contact-icon">📱</span>
+        <div><h4>Phone</h4><p>+91 8495077385</p></div>
+      </div>
+      <div class="contact-info-item">
+        <span class="contact-icon">📍</span>
+        <div><h4>Location</h4><p>India</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form">
+        <input type="text" class="form-input" placeholder="Your Name">
+        <input type="email" class="form-input" placeholder="Your Email">
+        <input type="text" class="form-input" placeholder="Subject">
+        <textarea class="form-input" placeholder="Your Message"></textarea>
+        <button class="btn-primary" onclick="this.textContent='Message Sent ✦';this.disabled=true;">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">👑 African Kingdom</div>
+      <p class="footer-tagline">A Dream Adventure Novel by Mohammed Afzal. A story of courage, destiny, and a kingdom that lives between sleep and waking.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">About the Novel</a></li>
+        <li><a href="#characters">Characters</a></li>
+        <li><a href="#timeline">The Journey</a></li>
+        <li><a href="#chapters">All Chapters</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#author">About the Author</a></li>
+        <li><a href="#download">Download PDF</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Mohammed Afzal. All rights reserved.</span>
+    <span>The Adventure of an African Kingdom</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="Gallery image">
+</div>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+<!-- AUTH MODAL -->
+<div id="auth-modal" class="modal-overlay hidden">
+  <div class="modal-card auth-card">
+    <button class="modal-close" data-close="auth-modal">✕</button>
+    <div class="modal-header">
+      <span class="modal-crown">👑</span>
+      <h2>Enter the Kingdom</h2>
+      <p>Login or create an account to read the novel</p>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">Login</button>
+      <button class="auth-tab" data-tab="register">Register</button>
+    </div>
+    <form id="login-form" class="auth-form">
+      <input type="email" id="login-email" class="form-input" placeholder="Email address" required>
+      <input type="password" id="login-password" class="form-input" placeholder="Password" required>
+      <button type="submit" class="btn-primary full-width">Login</button>
+    </form>
+    <form id="register-form" class="auth-form hidden">
+      <input type="text" id="register-name" class="form-input" placeholder="Full name" required>
+      <input type="email" id="register-email" class="form-input" placeholder="Email address" required>
+      <input type="password" id="register-password" class="form-input" placeholder="Password (min 6 chars)" required minlength="6">
+      <button type="submit" class="btn-primary full-width">Create Account</button>
+    </form>
+    <p id="auth-message" class="form-message"></p>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div id="payment-modal" class="modal-overlay hidden">
+  <div class="modal-card payment-card">
+    <button class="modal-close" data-close="payment-modal">✕</button>
+    <div class="modal-header">
+      <span class="modal-crown">💳</span>
+      <h2>Unlock Full Novel</h2>
+      <p>Pay <strong data-price>₹99</strong> via UPI to read all 13 chapters</p>
+    </div>
+    <div class="payment-body">
+      <div class="upi-scanner-wrap">
+        <img src="images/upi-scanner.png" alt="UPI QR Code — Mohammed Afzal" class="upi-scanner">
+        <p class="upi-note">Scan to pay with any UPI app</p>
+        <p class="upi-name">Mohammed Afzal</p>
+      </div>
+      <div class="payment-form-side">
+        <div class="price-badge"><span data-price="badge">₹99</span> <span>one-time</span></div>
+        <ol class="payment-steps">
+          <li>Scan the QR code and pay <span data-price>₹99</span></li>
+          <li>Enter your UPI Transaction ID below</li>
+          <li>Click Verify — instant unlock!</li>
+        </ol>
+        <input type="text" id="txn-id" class="form-input" placeholder="UPI Transaction ID">
+        <button id="verify-payment-btn" class="btn-primary full-width">Verify Payment & Unlock</button>
+        <div class="payment-divider"><span>or</span></div>
+        <input type="text" id="unlock-code" class="form-input" placeholder="Enter unlock code">
+        <button id="redeem-code-btn" class="btn-outline full-width">Redeem Code</button>
+        <p class="payment-help">Need help? WhatsApp <a href="https://wa.me/918495077385" target="_blank">+91 8495077385</a> with payment screenshot.</p>
+        <p id="payment-message" class="form-message"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- READER -->
+<div id="reader" class="reader-overlay hidden">
+  <div class="reader-toolbar">
+    <button id="reader-close" class="reader-btn" title="Close">✕</button>
+    <div class="reader-title-wrap">
+      <span id="reader-chapter-label">Chapter 1</span>
+      <h2 id="reader-chapter-title">The Dream That Started Everything</h2>
+    </div>
+    <div class="reader-controls">
+      <button id="reader-font-down" class="reader-btn" title="Smaller text">A−</button>
+      <button id="reader-font-up" class="reader-btn" title="Larger text">A+</button>
+      <button id="reader-theme" class="reader-btn" title="Reading theme">📖</button>
+    </div>
+  </div>
+  <div class="reader-progress-wrap">
+    <div id="reader-progress" class="reader-progress"></div>
+  </div>
+  <div class="reader-body">
+    <aside class="reader-sidebar" id="reader-sidebar">
+      <h3>Chapters</h3>
+      <ul id="reader-chapter-list"></ul>
+    </aside>
+    <article class="reader-content" id="reader-content">
+      <div class="reader-chapter-header">
+        <p class="reader-eyebrow" id="reader-eyebrow">Chapter 1</p>
+        <h1 id="reader-h1">The Dream That Started Everything</h1>
+        <div class="reader-divider"></div>
+      </div>
+      <div id="reader-text" class="reader-text"></div>
+      <div class="reader-nav-btns">
+        <button id="reader-prev" class="btn-outline">← Previous</button>
+        <button id="reader-next" class="btn-primary">Next Chapter →</button>
+      </div>
+    </article>
+  </div>
+  <button id="reader-sidebar-toggle" class="reader-sidebar-toggle">☰ Chapters</button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-modal" class="modal-overlay hidden">
+  <div class="modal-card admin-card">
+    <button class="modal-close" data-close="admin-modal">✕</button>
+    <div class="modal-header">
+      <span class="modal-crown">⚙️</span>
+      <h2>Publisher Dashboard</h2>
+      <p>Manage readers and unlock codes</p>
+    </div>
+    <div class="admin-stats">
+      <div class="admin-stat"><span id="admin-total-readers">0</span><label>Total Readers</label></div>
+      <div class="admin-stat"><span id="admin-paid-readers">0</span><label>Paid Readers</label></div>
+    </div>
+    <div class="admin-section">
+      <h4>Generate Unlock Code</h4>
+      <div class="admin-row">
+        <input type="text" id="new-unlock-code" class="form-input" placeholder="New unlock code">
+        <button id="add-code-btn" class="btn-primary">Add</button>
+      </div>
+      <p class="admin-hint">Share codes with readers after verifying their UPI payment.</p>
+    </div>
+    <div class="admin-section">
+      <h4>Registered Readers</h4>
+      <div id="admin-readers-list" class="admin-list"></div>
+    </div>
+    <p id="admin-message" class="form-message"></p>
+  </div>
+</div>
+
+<!-- LOCKED CHAPTER OVERLAY -->
+<div id="locked-toast" class="locked-toast hidden">
+  <span>🔒</span>
+  <p>Login & pay <span data-price>₹99</span> to read the full story</p>
+  <button id="locked-login-btn" class="btn-primary">Unlock Now</button>
+</div>
+
+<script src="novel-data.js"></script>
+<script src="auth.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
