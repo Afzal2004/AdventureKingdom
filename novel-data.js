@@ -4,7 +4,7 @@ const NOVEL = {
   subtitle: "A Dream Adventure Novel",
   author: "Mohammed Afzal",
   publisher: "KMS WORLD, Mangalore",
-  price: 99,
+  price: 59,
   chapters: [
     {
       num: 1,
