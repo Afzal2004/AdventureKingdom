@@ -2,7 +2,7 @@
 const AUTH_CONFIG = {
   adminEmail: 'mohammedafzal1423@gmail.com',
   adminPassword: 'Kingdom@2026',
-  price: 99,
+  price: 59,
   storageKeys: {
     users: 'ak_users',
     session: 'ak_session',
