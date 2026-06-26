@@ -277,7 +277,7 @@ function tryDownload() {
     return;
   }
   const link = document.createElement('a');
-  link.href = 'images/Novel sheet.pdf';
+  link.href = 'Novel sheet.pdf';
   link.download = 'The Adventure of an African Kingdom.pdf';
   document.body.appendChild(link);
   link.click();
