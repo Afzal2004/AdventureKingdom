@@ -191,6 +191,11 @@ function updateAuthUI() {
     el.textContent = `₹${price}`;
   });
 
+  const gpayBtn = document.getElementById('gpay-btn');
+  if (gpayBtn) {
+    gpayBtn.href = Auth.getUpiLink();
+  }
+
   if (user) {
     loginBtn.classList.add('hidden');
     userMenu.classList.remove('hidden');
@@ -218,12 +223,52 @@ document.querySelectorAll('.auth-tab').forEach(tab => {
   });
 });
 
+// Toggle Admin Login in Login Form
+let isAdminLogin = false;
+const toggleAdminBtn = document.getElementById('toggle-admin-login');
+if (toggleAdminBtn) {
+  toggleAdminBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    isAdminLogin = !isAdminLogin;
+    
+    const readerFields = document.getElementById('reader-login-fields');
+    const adminFields = document.getElementById('admin-login-fields');
+    const phoneInput = document.getElementById('login-phone');
+    const emailInput = document.getElementById('login-email');
+    const passwordInput = document.getElementById('login-password');
+    
+    if (isAdminLogin) {
+      readerFields.classList.add('hidden');
+      adminFields.classList.remove('hidden');
+      phoneInput.removeAttribute('required');
+      emailInput.setAttribute('required', '');
+      passwordInput.setAttribute('required', '');
+      toggleAdminBtn.textContent = 'Reader Login';
+    } else {
+      readerFields.classList.remove('hidden');
+      adminFields.classList.add('hidden');
+      phoneInput.setAttribute('required', '');
+      emailInput.removeAttribute('required');
+      passwordInput.removeAttribute('required');
+      toggleAdminBtn.textContent = 'Admin Login';
+    }
+    showMessage(document.getElementById('auth-message'), '');
+  });
+}
+
 document.getElementById('login-form').addEventListener('submit', e => {
   e.preventDefault();
-  const result = Auth.login(
-    document.getElementById('login-email').value,
-    document.getElementById('login-password').value
-  );
+  let result;
+  if (isAdminLogin) {
+    result = Auth.adminLogin(
+      document.getElementById('login-email').value,
+      document.getElementById('login-password').value
+    );
+  } else {
+    result = Auth.login(
+      document.getElementById('login-phone').value
+    );
+  }
   showMessage(document.getElementById('auth-message'), result.message, result.ok ? 'success' : 'error');
   if (result.ok) {
     updateAuthUI();
@@ -233,18 +278,30 @@ document.getElementById('login-form').addEventListener('submit', e => {
 
 document.getElementById('register-form').addEventListener('submit', e => {
   e.preventDefault();
-  const result = Auth.register(
-    document.getElementById('register-name').value,
-    document.getElementById('register-email').value,
-    document.getElementById('register-password').value
-  );
+  const name = document.getElementById('register-name').value;
+  const phone = document.getElementById('register-phone').value;
+  
+  const result = Auth.register(name, phone);
   showMessage(document.getElementById('auth-message'), result.message, result.ok ? 'success' : 'error');
   if (result.ok) {
     updateAuthUI();
+    
+    // Set UPI link in GPay button
+    const gpayBtn = document.getElementById('gpay-btn');
+    if (gpayBtn) {
+      gpayBtn.href = Auth.getUpiLink();
+    }
+    
     setTimeout(() => {
       hideModal('auth-modal');
-      if (!Auth.hasAccess()) showModal('payment-modal');
-    }, 800);
+      // Open payment modal
+      showModal('payment-modal');
+      
+      // Auto-trigger GPay UPI link on mobile
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.location.href = Auth.getUpiLink();
+      }
+    }, 1000);
   }
 });
 
@@ -277,7 +334,7 @@ function tryDownload() {
     return;
   }
   const link = document.createElement('a');
-  link.href = 'Novel sheet.pdf';
+  link.href = 'images/Novel sheet.pdf';
   link.download = 'The Adventure of an African Kingdom.pdf';
   document.body.appendChild(link);
   link.click();
@@ -292,30 +349,38 @@ document.getElementById('download-read-btn').addEventListener('click', tryRead);
 document.getElementById('preview-read-btn').addEventListener('click', tryRead);
 document.getElementById('locked-login-btn').addEventListener('click', tryRead);
 
-// Payment
-document.getElementById('verify-payment-btn').addEventListener('click', () => {
-  const result = Auth.submitPayment(document.getElementById('txn-id').value);
-  showMessage(document.getElementById('payment-message'), result.message, result.ok ? 'success' : 'error');
-  if (result.ok) {
-    updateAuthUI();
-    setTimeout(() => {
-      hideModal('payment-modal');
-      openReader(0);
-    }, 1000);
-  }
-});
+// Payment Verification (if elements exist)
+const verifyBtn = document.getElementById('verify-payment-btn');
+if (verifyBtn) {
+  verifyBtn.addEventListener('click', () => {
+    const txnInput = document.getElementById('txn-id');
+    const result = Auth.submitPayment(txnInput ? txnInput.value : '');
+    showMessage(document.getElementById('payment-message'), result.message, result.ok ? 'success' : 'error');
+    if (result.ok) {
+      updateAuthUI();
+      setTimeout(() => {
+        hideModal('payment-modal');
+        openReader(0);
+      }, 1000);
+    }
+  });
+}
 
-document.getElementById('redeem-code-btn').addEventListener('click', () => {
-  const result = Auth.redeemCode(document.getElementById('unlock-code').value);
-  showMessage(document.getElementById('payment-message'), result.message, result.ok ? 'success' : 'error');
-  if (result.ok) {
-    updateAuthUI();
-    setTimeout(() => {
-      hideModal('payment-modal');
-      openReader(0);
-    }, 1000);
-  }
-});
+const redeemBtn = document.getElementById('redeem-code-btn');
+if (redeemBtn) {
+  redeemBtn.addEventListener('click', () => {
+    const codeInput = document.getElementById('unlock-code');
+    const result = Auth.redeemCode(codeInput ? codeInput.value : '');
+    showMessage(document.getElementById('payment-message'), result.message, result.ok ? 'success' : 'error');
+    if (result.ok) {
+      updateAuthUI();
+      setTimeout(() => {
+        hideModal('payment-modal');
+        openReader(0);
+      }, 1000);
+    }
+  });
+}
 
 // Admin
 document.getElementById('admin-btn').addEventListener('click', () => {
@@ -336,14 +401,16 @@ function renderAdminPanel() {
   readers.forEach(r => {
     const item = document.createElement('div');
     item.className = 'admin-reader-item';
+    const txnInfo = r.txnId ? `<br><span style="color:var(--gold);font-size:0.72rem;font-weight:bold;">Txn ID: ${r.txnId}</span>` : '';
     item.innerHTML = `
       <div>
         <strong>${r.name}</strong><br>
-        <span style="color:var(--gray);font-size:0.72rem;">${r.email}</span>
+        <span style="color:var(--gray);font-size:0.72rem;">${r.phone}</span>
+        ${txnInfo}
       </div>
       <div style="display:flex;align-items:center;gap:0.5rem;">
         <span class="${r.paid ? 'status-paid' : 'status-unpaid'}">${r.paid ? '✓ Paid' : '✗ Unpaid'}</span>
-        ${!r.paid ? `<button class="admin-grant-btn" data-email="${r.email}">Grant Access</button>` : ''}
+        ${!r.paid ? `<button class="admin-grant-btn" data-phone="${r.phone}">Grant Access</button>` : ''}
       </div>
     `;
     list.appendChild(item);
@@ -351,7 +418,7 @@ function renderAdminPanel() {
 
   list.querySelectorAll('.admin-grant-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const result = Auth.adminGrantAccess(btn.dataset.email);
+      const result = Auth.adminGrantAccess(btn.dataset.phone);
       showMessage(document.getElementById('admin-message'), result.message, result.ok ? 'success' : 'error');
       renderAdminPanel();
     });
