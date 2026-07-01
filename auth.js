@@ -3,6 +3,8 @@ const AUTH_CONFIG = {
   adminEmail: 'mohammedafzal1423@gmail.com',
   adminPassword: 'Kingdom@2026',
   price: 59,
+  upiId: 'athikaneef@oksbi', // Author's phone-based Google Pay UPI ID
+  upiName: 'Mohammed Afzal', // Registered name on UPI
   storageKeys: {
     users: 'ak_users',
     session: 'ak_session',
@@ -36,43 +38,61 @@ const Auth = {
     localStorage.removeItem(AUTH_CONFIG.storageKeys.session);
   },
 
+  normalizePhone(phone) {
+    return phone.trim().replace(/[^0-9+]/g, '');
+  },
+
   normalizeEmail(email) {
     return email.trim().toLowerCase();
   },
 
-  register(name, email, password) {
-    const norm = this.normalizeEmail(email);
-    if (!name.trim() || !norm || password.length < 6) {
-      return { ok: false, message: 'Please fill all fields. Password must be at least 6 characters.' };
+  getUpiLink() {
+    return `upi://pay?pa=${AUTH_CONFIG.upiId}&pn=${encodeURIComponent(AUTH_CONFIG.upiName)}&am=${AUTH_CONFIG.price}&cu=INR&tn=${encodeURIComponent('Adventure Kingdom Novel')}`;
+  },
+
+  register(name, phone) {
+    const normPhone = this.normalizePhone(phone);
+    if (!name.trim() || !normPhone || normPhone.length < 10) {
+      return { ok: false, message: 'Please enter your name and a valid 10-digit phone number.' };
     }
     const users = this.getUsers();
-    if (users[norm]) return { ok: false, message: 'An account with this email already exists.' };
+    if (users[normPhone]) return { ok: false, message: 'An account with this phone number already exists.' };
 
-    const isAdmin = false;
-    users[norm] = {
+    users[normPhone] = {
       name: name.trim(),
-      email: norm,
-      password,
-      isAdmin,
+      phone: normPhone,
+      isAdmin: false,
       paid: false,
       paidAt: null,
       createdAt: Date.now()
     };
     this.saveUsers(users);
-    this.setSession({ email: norm, name: name.trim(), isAdmin: false, paid: false });
-    return { ok: true, message: 'Account created! Please complete payment to read the novel.' };
+    this.setSession({ phone: normPhone, name: name.trim(), isAdmin: false, paid: false });
+    return { ok: true, message: 'Account created! Opening Google Pay...' };
   },
 
-  login(email, password) {
-    const norm = this.normalizeEmail(email);
+  login(phone) {
+    const normPhone = this.normalizePhone(phone);
+    if (!normPhone) {
+      return { ok: false, message: 'Please enter your registered phone number.' };
+    }
     const users = this.getUsers();
+    const user = users[normPhone];
+    if (!user) {
+      return { ok: false, message: 'Phone number not registered. Please register first.' };
+    }
+    this.setSession({ phone: normPhone, name: user.name, isAdmin: false, paid: user.paid });
+    return { ok: true, message: user.paid ? 'Welcome back!' : 'Logged in. Complete payment to unlock all chapters.' };
+  },
 
+  adminLogin(email, password) {
+    const norm = this.normalizeEmail(email);
     if (norm === AUTH_CONFIG.adminEmail && password === AUTH_CONFIG.adminPassword) {
+      const users = this.getUsers();
       if (!users[norm]) {
         users[norm] = {
           name: 'Mohammed Afzal',
           email: norm,
-          password: AUTH_CONFIG.adminPassword,
           isAdmin: true,
           paid: true,
           paidAt: Date.now(),
@@ -85,15 +105,9 @@ const Auth = {
         this.saveUsers(users);
       }
       this.setSession({ email: norm, name: 'Mohammed Afzal', isAdmin: true, paid: true });
-      return { ok: true, message: 'Welcome back! Enjoy unlimited reading.' };
+      return { ok: true, message: 'Welcome back, Admin! Dashboard unlocked.' };
     }
-
-    const user = users[norm];
-    if (!user || user.password !== password) {
-      return { ok: false, message: 'Invalid email or password.' };
-    }
-    this.setSession({ email: norm, name: user.name, isAdmin: user.isAdmin, paid: user.paid });
-    return { ok: true, message: user.paid ? 'Welcome back!' : 'Logged in. Complete payment to unlock all chapters.' };
+    return { ok: false, message: 'Invalid admin email or password.' };
   },
 
   logout() {
@@ -103,7 +117,8 @@ const Auth = {
   getCurrentUser() {
     const session = this.getSession();
     if (!session) return null;
-    const user = this.getUsers()[session.email];
+    const key = session.isAdmin ? session.email : session.phone;
+    const user = this.getUsers()[key];
     if (!user) { this.clearSession(); return null; }
     return { ...user, ...session, paid: user.paid || user.isAdmin };
   },
@@ -126,12 +141,13 @@ const Auth = {
     if (ref.length < 8) return { ok: false, message: 'Enter a valid UPI Transaction ID (at least 8 characters).' };
 
     const users = this.getUsers();
-    const used = Object.values(users).some(u => u.txnId === ref && u.email !== user.email);
+    const userKey = user.phone;
+    const used = Object.values(users).some(u => u.txnId === ref && u.phone !== user.phone);
     if (used) return { ok: false, message: 'This Transaction ID has already been used.' };
 
-    users[user.email].txnId = ref;
-    users[user.email].paid = true;
-    users[user.email].paidAt = Date.now();
+    users[userKey].txnId = ref;
+    users[userKey].paid = true;
+    users[userKey].paidAt = Date.now();
     this.saveUsers(users);
     this.setSession({ ...this.getSession(), paid: true });
     return { ok: true, message: 'Payment verified! All chapters are now unlocked. Enjoy the adventure! 👑' };
@@ -149,9 +165,10 @@ const Auth = {
     }
 
     const users = this.getUsers();
-    users[user.email].paid = true;
-    users[user.email].paidAt = Date.now();
-    users[user.email].unlockCode = normalized;
+    const userKey = user.phone;
+    users[userKey].paid = true;
+    users[userKey].paidAt = Date.now();
+    users[userKey].unlockCode = normalized;
     this.saveUsers(users);
     this.setSession({ ...this.getSession(), paid: true });
     return { ok: true, message: 'Unlock code accepted! Happy reading! 📖' };
@@ -184,13 +201,12 @@ const Auth = {
     return Object.values(this.getUsers()).filter(u => !u.isAdmin);
   },
 
-  adminGrantAccess(email) {
-    const norm = this.normalizeEmail(email);
+  adminGrantAccess(phone) {
     const users = this.getUsers();
-    if (!users[norm]) return { ok: false, message: 'User not found.' };
-    users[norm].paid = true;
-    users[norm].paidAt = Date.now();
+    if (!users[phone]) return { ok: false, message: 'User not found.' };
+    users[phone].paid = true;
+    users[phone].paidAt = Date.now();
     this.saveUsers(users);
-    return { ok: true, message: `Access granted to ${users[norm].name}.` };
+    return { ok: true, message: `Access granted to ${users[phone].name}.` };
   }
 };
