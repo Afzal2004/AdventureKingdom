@@ -33,6 +33,67 @@ body.light-mode {
   --navy-light: #ddd5c0;
   --glass: rgba(0,0,0,0.05);
   --glass-border: rgba(168,136,32,0.3);
+  --gray: #4A5568; /* Make gray text dark and readable in Day Mode */
+}
+
+/* Day Mode Text Colors */
+body.light-mode .section-lead,
+body.light-mode .quote-text,
+body.light-mode .review-text,
+body.light-mode .about-text h2,
+body.light-mode .section-title,
+body.light-mode .tl-content h3,
+body.light-mode .ch-title {
+  color: #1a1a2e;
+}
+
+body.light-mode .ch-preview,
+body.light-mode .tl-content p,
+body.light-mode .char-desc,
+body.light-mode .contact-info-item p,
+body.light-mode .footer-tagline,
+body.light-mode .footer-col a,
+body.light-mode .upi-note,
+body.light-mode .payment-steps li,
+body.light-mode .payment-help {
+  color: #2d3748;
+}
+
+body.light-mode p:not(#hero p):not(#reader p):not(footer p) {
+  color: #1a1a2e !important;
+}
+
+body.light-mode blockquote {
+  color: #2d3748 !important;
+}
+
+/* Reader Light Mode Overrides (for writings in novel-data.js) */
+body.light-mode .reader-overlay {
+  background: #F5F0E8;
+}
+body.light-mode .reader-toolbar {
+  background: #e8e0d0;
+  border-color: rgba(0,0,0,0.1);
+}
+body.light-mode .reader-toolbar,
+body.light-mode .reader-title-wrap,
+body.light-mode .reader-btn {
+  color: #1a1a2e;
+}
+body.light-mode .reader-text p {
+  color: #1a1a2e !important;
+}
+body.light-mode .reader-sidebar {
+  background: #e8e0d0;
+  border-color: rgba(0,0,0,0.1);
+}
+body.light-mode .reader-sidebar h3,
+body.light-mode .reader-sidebar li {
+  color: #1a1a2e;
+}
+body.light-mode .reader-chapter-header h1,
+body.light-mode .reader-eyebrow {
+  color: #1a1a2e;
 }
 
 /* ---- LOADER ---- */
