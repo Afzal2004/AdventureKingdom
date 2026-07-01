@@ -82,7 +82,7 @@
                 Download PDF
             </button>
         </div>
-        <p class="hero-price-note">✦ Login required · Unlock for <span data-price>₹59</span> to read & download ✦</p>
+        <p class="hero-price-note">✦ Login required · Unlock for <span data-price>₹99</span> to read & download ✦</p>
     </div>
 
     <!-- Scroll Indicator -->
@@ -151,9 +151,9 @@
           <li>✦ Full story from the official PDF edition</li>
           <li>✦ Chapter-by-chapter navigation</li>
           <li>✦ Comfortable reading themes</li>
-          <li>✦ One-time unlock for just <span data-price>₹59</span></li>
+          <li>✦ One-time unlock for just <span data-price>₹99</span></li>
         </ul>
-        <button id="preview-read-btn" class="btn-primary">Start Reading — <span data-price>₹59</span></button>
+        <button id="preview-read-btn" class="btn-primary">Start Reading — <span data-price>₹99</span></button>
       </div>
     </div>
   </div>
@@ -479,22 +479,29 @@
     <div class="modal-header">
       <span class="modal-crown">👑</span>
       <h2>Enter the Kingdom</h2>
-      <p>Login or create an account to read the novel</p>
+      <p>Login or register to read the novel</p>
     </div>
     <div class="auth-tabs">
       <button class="auth-tab active" data-tab="login">Login</button>
       <button class="auth-tab" data-tab="register">Register</button>
     </div>
     <form id="login-form" class="auth-form">
-      <input type="email" id="login-email" class="form-input" placeholder="Email address" required>
-      <input type="password" id="login-password" class="form-input" placeholder="Password" required>
-      <button type="submit" class="btn-primary full-width">Login</button>
+      <div id="reader-login-fields">
+        <input type="tel" id="login-phone" class="form-input" placeholder="Registered phone number (10 digits)" required pattern="[0-9]{10}">
+      </div>
+      <div id="admin-login-fields" class="hidden">
+        <input type="email" id="login-email" class="form-input" placeholder="Admin email">
+        <input type="password" id="login-password" class="form-input" placeholder="Admin password">
+      </div>
+      <button type="submit" class="btn-primary full-width" style="margin-top: 1rem;">Login</button>
+      <div class="auth-switch-link" style="text-align:center;margin-top:1.2rem;font-size:0.85rem;">
+        <a href="#" id="toggle-admin-login" style="color:var(--gold); text-decoration: none; font-weight: 500;">Admin Login</a>
+      </div>
     </form>
     <form id="register-form" class="auth-form hidden">
       <input type="text" id="register-name" class="form-input" placeholder="Full name" required>
-      <input type="email" id="register-email" class="form-input" placeholder="Email address" required>
-      <input type="password" id="register-password" class="form-input" placeholder="Password (min 6 chars)" required minlength="6">
-      <button type="submit" class="btn-primary full-width">Create Account</button>
+      <input type="tel" id="register-phone" class="form-input" placeholder="Phone number (10 digits)" required pattern="[0-9]{10}">
+      <button type="submit" class="btn-primary full-width" style="margin-top: 1rem;">Register & Pay</button>
     </form>
     <p id="auth-message" class="form-message"></p>
   </div>
@@ -502,34 +509,43 @@
 
 <!-- PAYMENT MODAL -->
 <div id="payment-modal" class="modal-overlay hidden">
-  <div class="modal-card payment-card">
+  <div class="modal-card payment-card" style="max-width: 500px;">
     <button class="modal-close" data-close="payment-modal">✕</button>
     <div class="modal-header">
       <span class="modal-crown">💳</span>
       <h2>Unlock Full Novel</h2>
-      <p>Pay <strong data-price>₹59</strong> via UPI to read all 13 chapters</p>
+      <p>Pay <strong data-price>₹59</strong> to read all 13 chapters</p>
     </div>
-    <div class="payment-body">
-      <div class="upi-scanner-wrap">
-        <img src="upi-scanner.png" alt="UPI QR Code — Mohammed Afzal" class="upi-scanner">
-        <p class="upi-note">Scan to pay with any UPI app</p>
-        <p class="upi-name">Mohammed Afzal</p>
+    <div class="payment-body" style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center;">
+      <div class="price-badge" style="margin-bottom: 0.5rem;"><span data-price="badge">₹59</span> <span>one-time</span></div>
+      
+      <!-- Google Pay / UPI Deep Link Button -->
+      <div class="upi-pay-btn-wrap" style="width: 100%;">
+        <a id="gpay-btn" href="upi://pay?pa=athikaneef@oksbi&pn=Mohammed_Afzal&am=59&cu=INR&tn=Payment" class="btn-primary full-width" style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; text-decoration: none; background: linear-gradient(135deg, #1a73e8, #1557b0); border: none; color: white; padding: 1rem; font-size: 1rem; border-radius: 8px;">
+          <i class="fab fa-google-pay" style="font-size: 2.5rem; line-height: 1;"></i> Pay ₹59 via GPay / UPI
+        </a>
       </div>
-      <div class="payment-form-side">
-        <div class="price-badge"><span data-price="badge">₹59</span> <span>one-time</span></div>
-        <ol class="payment-steps">
-          <li>Scan the QR code and pay <span data-price>₹59</span></li>
-          <li>Enter your UPI Transaction ID below</li>
-          <li>Click Verify — instant unlock!</li>
-        </ol>
-        <input type="text" id="txn-id" class="form-input" placeholder="UPI Transaction ID">
-        <button id="verify-payment-btn" class="btn-primary full-width">Verify Payment & Unlock</button>
-        <div class="payment-divider"><span>or</span></div>
-        <input type="text" id="unlock-code" class="form-input" placeholder="Enter unlock code">
+
+      <div class="payment-divider" style="width: 100%;"><span>or scan QR code</span></div>
+
+      <div class="upi-scanner-wrap" style="background: #f5f5f5; border-radius: 12px; padding: 1.5rem; width: 100%; max-width: 280px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+        <img src="images/upi-scanner.png" alt="UPI QR Code" class="upi-scanner" style="width: 100%; max-width: 220px; border-radius: 8px; display: block; margin: 0 auto;">
+        <p class="upi-note" style="color:#e056fd; font-weight:bold; font-size:0.85rem; margin-top:0.5rem;">⚠️ Scan & Pay exactly ₹59</p>
+        <p class="upi-note" style="color: #555;">Scan to pay with any UPI app</p>
+      </div>
+
+      <div class="payment-divider" style="width: 100%;"><span>or redeem a code</span></div>
+      
+      <div style="width: 100%;">
+        <input type="text" id="unlock-code" class="form-input" placeholder="Enter unlock code" style="margin-bottom: 0.6rem;">
         <button id="redeem-code-btn" class="btn-outline full-width">Redeem Code</button>
-        <p class="payment-help">Need help? WhatsApp <a href="https://wa.me/918495077385" target="_blank">+91 8495077385</a> with payment screenshot.</p>
-        <p id="payment-message" class="form-message"></p>
       </div>
+
+      <p class="payment-help" style="margin-top: 1rem; font-size: 0.85rem; color: var(--gray); line-height: 1.6;">
+        After payment, the author will verify and grant you access shortly.<br>
+        For instant activation, please WhatsApp your payment screenshot to <a href="https://wa.me/918495077385" target="_blank" style="color: var(--gold); font-weight: bold;">+91 8495077385</a>.
+      </p>
+      <p id="payment-message" class="form-message"></p>
     </div>
   </div>
 </div>
